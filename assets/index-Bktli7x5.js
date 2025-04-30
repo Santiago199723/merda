@@ -18580,7 +18580,7 @@ function $j({ onClick: e, disabled: t }) {
 }
 
 function Hj({ asset: e, onAssetSelect: t, onAnalyze: n }) {
-    const { t: r } = ue()
+    const { t: r } = ue();
     const { isConnected: s } = gs();
     const [showMenu, setShowMenu] = x.useState(false);
     const [selectedBroker, setSelectedBroker] = x.useState(null);
@@ -18607,6 +18607,8 @@ function Hj({ asset: e, onAssetSelect: t, onAnalyze: n }) {
                             alt: "Trading Animation",
                             className: "w-full h-full object-contain"
                         }),
+
+                        // Botão que exibe "Sinais para a corretora (corretora selecionada)" ou "Escolha sua corretora" caso nenhuma corretora tenha sido selecionada
                         a.jsx("button", {
                             style: {
                                 backgroundColor: "red",
@@ -18633,31 +18635,35 @@ function Hj({ asset: e, onAssetSelect: t, onAnalyze: n }) {
                                 a.jsx("font", {
                                     children: a.jsx("font", {
                                         style: { verticalAlign: "inherit" },
-                                        children: selectedBroker || "Escolha sua corretora"
+                                        children: selectedBroker ? `Sinais para a corretora ${selectedBroker}` : "Escolha sua corretora"
                                     }),
                                     style: { verticalAlign: "inherit" }
                                 })
                             ]
                         }),
+
+                        // Menu suspenso para escolher a corretora
                         showMenu && a.jsx("div", {
                             style: {
                                 position: 'absolute',
                                 backgroundColor: "#f0f0f0",
-                                minWidth: "100%",
+                                width: "200px",  // Ajuste a largura aqui
                                 boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",
                                 zIndex: "1",
                                 borderRadius: "5px",
                                 padding: "0",
                                 transition: "all 0.3s ease-in-out",
                                 top: '100%',
-                                left: '0'
+                                left: '50%',  // Coloca o menu no meio
+                                transform: 'translateX(-50%)',  // Ajusta para que o menu fique centralizado
+                                marginTop: '8px',  // Adiciona um pequeno espaço entre o botão e o menu
                             },
                             children: corretoras.map(corretora =>
                                 a.jsx("a", {
                                     href: "#",
                                     style: {
                                         display: "block",
-                                        padding: "12px 20px",
+                                        padding: "12px 16px",
                                         textDecoration: "none",
                                         color: "black",
                                         fontSize: "14px",
@@ -18708,6 +18714,7 @@ function Hj({ asset: e, onAssetSelect: t, onAnalyze: n }) {
         })
     })
 }
+
 
 const Wj = ({ asset: e }) => {
     const t = Math.random() < .6 ? "bullish" : "bearish"
